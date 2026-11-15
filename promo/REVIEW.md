@@ -4,7 +4,7 @@ Source of every fact and label: the App Store listing (id6815319699, nb) – des
 screenshots and the app icon. Photos are cropped from those screenshots. App screens are rebuilt
 flat in HTML from the screenshots' own labels (no invented buttons or text).
 
-## A · «Mens kampen pågår» (24 s) – recommended
+## A · «Mens kampen pågår» (24 s)
 Device: one photographer's real task, start to finish. Form: object-to-object chain.
 Kampen pågår fortsatt → shutter → «Fra kamera til redaksjon. Uten laptop.» → the photo is carried
 into the phone («Rett til iPhone. Over Wi‑Fi.») → MEMO confirms #33 Andreas Nibe, #24 Sigurd Rosted,
@@ -18,7 +18,7 @@ Hele desken. → Wi‑Fi. → #5 → MEMO. → IPTC. → FTP. → Mini Desk. →
 flip on the beat → «Rett i lomma.» → lockup, «Fra kamera til redaksjon. Uten laptop.», CTA.
 Look: alternating ice #eef4fb / cobalt fields, giant italic words, one real UI piece per word.
 
-## C · «Se nummeret.» (20 s)
+## C · «Se nummeret.» (20 s) – recommended to post first
 Device: the feature as the hook. Form: one pull-back zoom.
 Frame 0 is the #5 jersey, ringed → «Finn spilleren.» → the camera pulls back 6.5× into the same
 number inside Shutdesk → Draktanalyse «Fant 1 nummer i bildet» → two #5 candidates → you pick
