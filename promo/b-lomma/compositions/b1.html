@@ -1,0 +1,229 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: var(--cobalt); }
+    .b1-p { position: absolute; inset: 0; opacity: 0; }
+    .b1-p.ice { background: var(--ice); color: var(--cobalt); }
+    .b1-p.cob { background: var(--cobalt); color: #fff; }
+    .b1-word { position: absolute; left: 60px; right: 40px; top: 230px; font-size: 300px; }
+    .b1-sub { position: absolute; left: 66px; right: 60px; top: 540px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 50px; line-height: 1.15; }
+    .ice .b1-sub { color: #0b1f45; }
+    .cob .b1-sub { color: var(--sky); }
+    #b1-p0 { opacity: 1; }
+    #b1-open { position: absolute; left: 50px; right: 30px; top: 300px; color: #fff; font-size: 330px; line-height: 0.86; }
+    #b1-open .acc { color: var(--sky); }
+
+    /* 1 wi-fi */
+    #b1-status { position: absolute; left: 60px; width: 960px; top: 720px; height: 120px; border-radius: 30px; background: #122036; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; font-family: "Inter", sans-serif; font-size: 44px; }
+    #b1-status .dot { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--app-green); margin-right: 22px; }
+    #b1-status .ip { font-family: "JetBrains Mono", monospace; font-size: 38px; color: #dfe6f0; }
+    .b1-th { position: absolute; top: 880px; width: 300px; height: 300px; border-radius: 22px; overflow: hidden; }
+    .b1-th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* 2 #5 */
+    #b1-nrphoto { position: absolute; left: 60px; top: 680px; width: 470px; height: 640px; overflow: hidden; border-radius: 22px; }
+    #b1-nrphoto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+    #b1-ring { position: absolute; left: 60px; top: 680px; width: 470px; height: 640px; }
+    #b1-nrrow { position: absolute; left: 560px; top: 820px; width: 470px; border-radius: 26px; background: #0d1522; color: #fff; padding: 30px 32px; font-family: "Inter", sans-serif; }
+    #b1-nrrow .f { color: var(--app-green); font-weight: 700; font-size: 30px; margin-bottom: 18px; }
+    #b1-nrrow .n { font-size: 44px; font-weight: 700; line-height: 1.15; }
+    #b1-nrrow .t { font-size: 32px; color: var(--app-dim); margin-top: 8px; }
+
+    /* 3 memo */
+    #b1-memo { left: 60px; top: 760px; padding: 26px 40px; border-radius: 40px; gap: 30px; }
+    #b1-memo .k { font-size: 30px; }
+    #b1-memo .v { font-size: 46px; display: block; }
+    #b1-memo .wave { height: 80px; gap: 8px; }
+    #b1-memo .wave i { width: 10px; }
+
+    /* 4 iptc */
+    #b1-cap { position: absolute; left: 60px; width: 960px; top: 700px; border-radius: 30px; background: #182233; padding: 36px 40px; font-family: "Inter", sans-serif; color: #eef2f8; }
+    #b1-cap .h { display: flex; justify-content: space-between; font-size: 30px; color: var(--app-dim); margin-bottom: 18px; }
+    #b1-cap .h b { color: var(--app-sky); font-weight: 400; }
+    #b1-cap .t { font-size: 42px; line-height: 1.35; }
+
+    /* 5 ftp */
+    #b1-send { left: 300px; top: 820px; width: 480px; height: 180px; border-radius: 90px; font-size: 76px; gap: 28px; }
+    #b1-send svg { width: 74px; height: 74px; }
+
+    /* 6 mini desk */
+    #b1-grid { position: absolute; left: 60px; top: 690px; width: 960px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #b1-grid div { height: 330px; overflow: hidden; border-radius: 14px; }
+    #b1-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* pocket: the home screen */
+    #b1-title { position: absolute; left: 60px; right: 40px; top: 250px; color: var(--cobalt); font-size: 200px; opacity: 0; }
+    #b1-title2 { position: absolute; left: 60px; right: 40px; top: 250px; color: var(--cobalt); font-size: 200px; opacity: 0; }
+    #b1-phone { left: 180px; top: 560px; }
+    .home { position: absolute; left: 30px; right: 30px; top: 120px; font-family: "Inter", sans-serif; }
+    .home .hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .home .hdr h4 { font-size: 46px; display: flex; align-items: center; gap: 16px; }
+    .home .hdr img { width: 54px; height: 54px; border-radius: 12px; }
+    .home .lbl { font-size: 22px; letter-spacing: 0.1em; color: var(--app-dim); font-weight: 700; margin: 18px 6px 12px; }
+    .home .card { background: var(--app-card); border-radius: 24px; padding: 6px 24px; }
+    .home .it { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 2px solid var(--app-line); }
+    .home .it:last-child { border-bottom: 0; }
+    .home .it b { display: block; font-size: 30px; font-weight: 700; }
+    .home .it small { display: block; font-size: 22px; color: var(--app-dim); margin-top: 4px; }
+    .tg { position: relative; width: 96px; height: 56px; border-radius: 28px; background: #3a4558; flex: 0 0 96px; }
+    .tg .on { position: absolute; inset: 0; border-radius: 28px; background: var(--app-green); opacity: 0; }
+    .tg i { position: absolute; left: 5px; top: 5px; width: 46px; height: 46px; border-radius: 50%; background: #fff; }
+  </style>
+  <div id="root" data-composition-id="b1" data-width="1080" data-height="1920">
+    <!-- 0 opener -->
+    <div id="b1-p0" class="b1-p cob"><h1 id="b1-open" class="display">Hele<br />desken<span class="acc">.</span></h1></div>
+
+    <!-- 1 -->
+    <div id="b1-p1" class="b1-p ice">
+      <h1 class="b1-word display">Wi‑Fi.</h1>
+      <div class="b1-sub">Kameraet sender bildene rett til iPhone.</div>
+      <div id="b1-status"><span><span class="dot"></span>Venter på bilder</span><span class="ip">192.168.86.38</span></div>
+      <div class="b1-th" id="b1-th1" style="left:60px"><img src="assets/img/p-app-pack.jpg" alt="" /></div>
+      <div class="b1-th" id="b1-th2" style="left:390px"><img src="assets/img/p-duel.jpg" alt="" /></div>
+      <div class="b1-th" id="b1-th3" style="left:720px"><img src="assets/img/p-app-nr5.jpg" alt="" /></div>
+    </div>
+
+    <!-- 2 -->
+    <div id="b1-p2" class="b1-p cob">
+      <h1 class="b1-word display">#5</h1>
+      <div class="b1-sub">Foreslår spillere fra bildet.</div>
+      <div id="b1-nrphoto"><img src="assets/img/p-nr5.jpg" alt="Spiller med nummer 5" /></div>
+      <svg id="b1-ring" viewBox="0 0 470 640"><circle id="b1-ringc" cx="236" cy="262" r="92" fill="none" stroke="#8ed8ff" stroke-width="10" stroke-dasharray="579" stroke-dashoffset="579" /></svg>
+      <div id="b1-nrrow"><div class="f">✓ Fant 1 nummer i bildet</div><div class="n">#5 Kevin Tshiembe</div><div class="t">Vålerenga</div></div>
+    </div>
+
+    <!-- 3 -->
+    <div id="b1-p3" class="b1-p ice">
+      <h1 class="b1-word display">MEMO.</h1>
+      <div class="b1-sub">Gjør lydnotater om til bildetekst.</div>
+      <div id="b1-memo" class="memo-pill">
+        <span class="wave"><i style="height:24px"></i><i style="height:56px"></i><i style="height:38px"></i><i style="height:70px"></i><i style="height:30px"></i><i style="height:52px"></i><i style="height:22px"></i></span>
+        <span><span class="k">MEMO · BEKREFTET</span><span class="v">#33 Andreas Nibe,<br />#24 Sigurd Rosted</span></span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div id="b1-p4" class="b1-p cob">
+      <h1 class="b1-word display">IPTC.</h1>
+      <div class="b1-sub">IPTC-maler for oppdraget.</div>
+      <div id="b1-cap"><div class="h"><span>Bildetekst</span><b>✎ Rediger</b></div><div class="t">Sarpsborg 08s spillere Andreas Nibe og Sigurd Rosted under eliteseriekampen i fotball mellom Sarpsborg 08 og Kristiansund på Sarpsborg stadion.</div></div>
+    </div>
+
+    <!-- 5 -->
+    <div id="b1-p5" class="b1-p ice">
+      <h1 class="b1-word display">FTP.</h1>
+      <div class="b1-sub">Send til FTP-servere.</div>
+      <div id="b1-send" class="send-btn"><svg id="b1-plane" viewBox="0 0 24 24" fill="#fff"><path d="M2 11.5 21 3l-6.5 18-3.2-7.3L2 11.5Zm9.6 1.7 2.1 4.8L18 6.4 7 11.3l4.6 1.9Z"/></svg>Send</div>
+    </div>
+
+    <!-- 6 -->
+    <div id="b1-p6" class="b1-p cob">
+      <h1 class="b1-word display" style="font-size:230px">Mini Desk.</h1>
+      <div class="b1-sub">Del bilder med desk eller kolleger.</div>
+      <div id="b1-grid">
+        <div><img src="assets/img/p-app-pack.jpg" alt="" /></div>
+        <div><img src="assets/img/p-duel.jpg" alt="" /></div>
+        <div><img src="assets/img/p-app-nr5.jpg" alt="" /></div>
+        <div><img src="assets/img/p-pack.jpg" alt="" /></div>
+      </div>
+    </div>
+
+    <!-- 7 pocket -->
+    <div id="b1-p7" class="b1-p ice">
+      <h1 id="b1-title" class="display">Hele desken.</h1>
+      <h1 id="b1-title2" class="display">Rett i lomma.</h1>
+      <div id="b1-phone" class="phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="sb-time" data-layout-ignore>19:03</div>
+          <div class="home">
+            <div class="hdr"><h4><img src="assets/img/icon.png" alt="" />Hjem</h4><span class="pill-auto">● AUTO SEND&nbsp; AV ⌄</span></div>
+            <div class="lbl">AUTOMATIKK</div>
+            <div class="card">
+              <div class="it"><span><b>MEMO</b><small>Lydmemo følger nye bilder</small></span><span class="tg"><span class="on"></span><i></i></span></div>
+              <div class="it"><span><b>Auto MEMO</b><small>Legger gjenkjent tekst i bildeteksten</small></span><span class="tg"><span class="on"></span><i></i></span></div>
+              <div class="it"><span><b>Draktanalyse</b><small>Foreslår spillere fra aktiv kodeliste</small></span><span class="tg"><span class="on"></span><i></i></span></div>
+              <div class="it"><span><b>Rask draktbekreftelse</b><small>Bekreft drakter med ett trykk</small></span><span class="tg"><span class="on"></span><i></i></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const B = 0.5; // 120 BPM: one beat = 15 frames
+      const beat = (n) => Math.round(n * B * 30) / 30;
+      const slam = (sel, at) => tl.fromTo(sel, { scale: 1.22, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "expo.out", transformOrigin: "0% 50%" }, at);
+      const panels = ["#b1-p0", "#b1-p1", "#b1-p2", "#b1-p3", "#b1-p4", "#b1-p5", "#b1-p6", "#b1-p7"];
+      // panel n starts on beat: opener 3 beats, each word 4 beats
+      const starts = [0, beat(3), beat(7), beat(11), beat(15), beat(19), beat(23), beat(27)];
+      starts.forEach((t, i) => {
+        if (i === 0) return;
+        tl.set(panels[i], { opacity: 1 }, t);
+        tl.set(panels[i - 1], { opacity: 0 }, t);
+      });
+
+      // opener: "desken." punches once on the downbeat
+      tl.fromTo("#b1-open", { scale: 1.06 }, { scale: 1, duration: 0.3, ease: "expo.out", transformOrigin: "0% 50%" }, 0);
+
+      // 1 wi-fi: thumbs land one per beat
+      let t = starts[1];
+      slam("#b1-p1 .b1-word", t);
+      tl.fromTo("#b1-p1 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      tl.fromTo("#b1-status", { x: -1100 }, { x: 0, duration: 0.3, ease: "expo.out" }, t + 0.1);
+      ["#b1-th1", "#b1-th2", "#b1-th3"].forEach((s, i) => tl.fromTo(s, { y: -260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, t + beat(1) + i * B));
+
+      // 2 #5: the ring draws round the number, the match lands
+      t = starts[2];
+      slam("#b1-p2 .b1-word", t);
+      tl.fromTo("#b1-p2 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      tl.fromTo("#b1-nrphoto img", { scale: 1.25 }, { scale: 1, duration: 1.4, ease: "power2.out" }, t);
+      tl.to("#b1-ringc", { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, t + beat(1));
+      tl.fromTo("#b1-nrrow", { x: 600 }, { x: 0, duration: 0.32, ease: "expo.out" }, t + beat(2));
+
+      // 3 memo
+      t = starts[3];
+      slam("#b1-p3 .b1-word", t);
+      tl.fromTo("#b1-p3 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      tl.fromTo("#b1-memo", { scale: 0.6, opacity: 0, transformOrigin: "0% 50%" }, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.5)" }, t + beat(1));
+      gsap.utils.toArray("#b1-memo .wave i").forEach((bar, i) => tl.fromTo(bar, { scaleY: 0.3 }, { scaleY: 1.1, duration: 0.125, ease: "sine.inOut", yoyo: true, repeat: 9 }, t + beat(1) + i * 0.03));
+
+      // 4 iptc
+      t = starts[4];
+      slam("#b1-p4 .b1-word", t);
+      tl.fromTo("#b1-p4 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      tl.fromTo("#b1-cap", { y: 500, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, t + beat(1));
+
+      // 5 ftp: press and the plane leaves
+      t = starts[5];
+      slam("#b1-p5 .b1-word", t);
+      tl.fromTo("#b1-p5 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      tl.fromTo("#b1-send", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }, t + beat(1) - 0.1);
+      tl.to("#b1-send", { scale: 0.9, duration: 0.07, ease: "power2.in" }, t + beat(2));
+      tl.to("#b1-send", { scale: 1, duration: 0.2, ease: "expo.out" }, t + beat(2) + 0.07);
+      tl.to("#b1-plane", { x: 900, y: -700, rotation: -12, duration: 0.45, ease: "power3.in" }, t + beat(2) + 0.05);
+
+      // 6 mini desk: the grid fills, one per half beat
+      t = starts[6];
+      slam("#b1-p6 .b1-word", t);
+      tl.fromTo("#b1-p6 .b1-sub", { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12);
+      gsap.utils.toArray("#b1-grid div").forEach((d, i) => tl.fromTo(d, { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, t + beat(1) + i * 0.25));
+
+      // 7 pocket: the phone rises, the switches flip on the beat
+      t = starts[7];
+      tl.fromTo("#b1-phone", { y: 1400 }, { y: 0, duration: 0.6, ease: "expo.out" }, t);
+      tl.fromTo("#b1-title", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, t + 0.15);
+      gsap.utils.toArray("#b1-phone .tg").forEach((g, i) => {
+        const at = t + beat(2) + i * B;
+        tl.to(g.querySelector(".on"), { opacity: 1, duration: 0.12 }, at);
+        tl.to(g.querySelector("i"), { x: 40, duration: 0.22, ease: "back.out(2)" }, at);
+      });
+      tl.to("#b1-title", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, t + beat(4));
+      tl.fromTo("#b1-title2", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, t + beat(4) + 0.12);
+
+      window.__timelines["b1"] = tl;
+    })();
+  </script>
+</template>

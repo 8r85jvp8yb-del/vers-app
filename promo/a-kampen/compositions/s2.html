@@ -1,0 +1,100 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: var(--cobalt); }
+    #s2-stage { position: absolute; inset: 0; }
+    #s2-phone { left: 180px; top: 690px; }
+    #s2-t1, #s2-t2, #s2-k2, #s2-v { opacity: 0; }
+    #s2-memo { opacity: 0; }
+    #s2-band { opacity: 0; }
+    #s2-band { position: absolute; left: 0; right: 0; top: 0; height: 470px; background: var(--cobalt); }
+    .s2-title { position: absolute; left: 70px; right: 70px; top: 250px; color: #fff; font-size: 172px; }
+    .s2-title .acc { color: var(--sky); }
+    .s2-sub { position: absolute; left: 74px; top: 588px; color: var(--sky); font-size: 76px; }
+    #s2-memo { left: 28px; top: 540px; }
+    #s2-memo .kv { position: relative; }
+    #s2-memo .v { white-space: normal; font-size: 27px; line-height: 1.2; width: 300px; }
+    #s2-memo .k { font-size: 21px; }
+    #s2-k2 { position: absolute; left: 0; top: 0; }
+    #s2-send { left: 446px; top: 566px; }
+    .s2-w { display: inline-block; opacity: 0; margin-right: 0.24em; }
+    #s2-fill { position: absolute; inset: 0; background: #1a86d6; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="s2" data-width="1080" data-height="1920">
+    <div id="s2-stage">
+      <div id="s2-phone" class="phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="sb-time" data-layout-ignore>18:32</div>
+          <div class="sb-right" data-layout-ignore><span class="sb-bars"><i style="height:10px"></i><i style="height:14px"></i><i style="height:18px"></i><i style="height:22px"></i></span><span class="sb-batt">72</span></div>
+          <div class="app-status" data-layout-ignore><span><span class="dot"></span>Venter på bilder</span><span class="ip">192.168.86.38</span></div>
+          <div class="app-nav" data-layout-ignore><span class="back">‹ Bilder</span><span class="pill-auto">● AUTO SEND&nbsp; AV ⌄</span></div>
+          <div class="app-photo"><img src="assets/img/p-app-pack.jpg" alt="" /></div>
+          <div id="s2-memo" class="memo-pill">
+            <span class="wave"><i style="height:12px"></i><i style="height:26px"></i><i style="height:18px"></i><i style="height:32px"></i><i style="height:14px"></i><i style="height:24px"></i></span>
+            <span class="kv">
+              <span class="k" id="s2-k1" style="display:block">MEMO</span>
+              <span class="k" id="s2-k2">MEMO · BEKREFTET</span>
+              <span class="v" id="s2-v" style="display:block">#33 Andreas Nibe, #24 Sigurd Rosted</span>
+            </span>
+          </div>
+          <div id="s2-send" class="send-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M2 11.5 21 3l-6.5 18-3.2-7.3L2 11.5Zm9.6 1.7 2.1 4.8L18 6.4 7 11.3l4.6 1.9Z"/></svg>Send</div>
+          <div class="thumbs">
+            <div class="sel"><img src="assets/img/p-app-pack.jpg" alt="" /></div>
+            <div><img src="assets/img/p-duel.jpg" alt="" /></div>
+            <div><img src="assets/img/p-app-nr5.jpg" alt="" /></div>
+            <div><img src="assets/img/p-pack.jpg" alt="" /></div>
+          </div>
+          <div class="cap-card"><div class="h"><span>Bildetekst</span><b>✎ Rediger</b></div>
+            <div class="t" id="s2-cap"><span class="s2-w">Sarpsborg</span><span class="s2-w">08s</span><span class="s2-w">spillere</span><span class="s2-w">Andreas</span><span class="s2-w">Nibe</span><span class="s2-w">og</span><span class="s2-w">Sigurd</span><span class="s2-w">Rosted</span><span class="s2-w">under</span><span class="s2-w">eliteseriekampen</span><span class="s2-w">i</span><span class="s2-w">fotball</span><span class="s2-w">mellom</span><span class="s2-w">Sarpsborg</span><span class="s2-w">08</span><span class="s2-w">og</span><span class="s2-w">Kristiansund</span><span class="s2-w">på</span><span class="s2-w">Sarpsborg</span><span class="s2-w">stadion.</span></div>
+          </div>
+          <div class="tabbar" data-layout-ignore><span>Hjem</span><span class="on">Bilder</span><span>Oppdrag</span><span>IPTC</span><span>Innstillinger</span></div>
+        </div>
+      </div>
+      <div id="s2-band" data-layout-allow-occlusion></div>
+      <h1 id="s2-t0" class="s2-title display">Rett til <span class="acc">iPhone.</span></h1>
+      <div id="s2-t0b" class="s2-sub display">Over Wi‑Fi.</div>
+      <h1 id="s2-t1" class="s2-title display">Si <span class="acc">navnet.</span></h1>
+      <h1 id="s2-t2" class="s2-title display">Send <span class="acc">bildet.</span></h1>
+    </div>
+    <div id="s2-fill"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, at, d = 0.2) => tl.fromTo(sel, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out" }, at);
+      const blurOut = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, at);
+
+
+      // hand-off from s1: same frame, then the camera lifts to the photo
+      blurOut("#s2-t0", 0.08);
+      blurOut("#s2-t0b", 0.1);
+      tl.to("#s2-band", { opacity: 1, duration: 0.2 }, 0.1);
+      tl.to("#s2-phone", { y: -480, duration: 0.65, ease: "power2.inOut" }, 0.12);
+      blurIn("#s2-t1", 0.62);
+
+      // MEMO: speak the name
+      tl.fromTo("#s2-memo", { opacity: 0, scale: 0.85, transformOrigin: "0% 50%" }, { opacity: 1, scale: 1, duration: 0.45, ease: "expo.out" }, 1.0);
+      gsap.utils.toArray("#s2-memo .wave i").forEach((bar, i) => {
+        tl.fromTo(bar, { scaleY: 0.35 }, { scaleY: 1.15, duration: 0.11 + (i % 3) * 0.03, ease: "sine.inOut", yoyo: true, repeat: 9 }, 1.05 + i * 0.03);
+      });
+      tl.to("#s2-k1", { opacity: 0, duration: 0.12 }, 2.25);
+      tl.to("#s2-k2", { opacity: 1, duration: 0.15 }, 2.3);
+      tl.fromTo("#s2-v", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 2.32);
+
+      // caption arrives word by word
+      tl.to(".s2-w", { opacity: 1, duration: 0.08, stagger: 0.055, ease: "none" }, 2.75);
+
+      // send it
+      blurOut("#s2-t1", 4.15);
+      blurIn("#s2-t2", 4.32);
+      tl.to("#s2-send", { scale: 0.9, duration: 0.08, ease: "power2.in" }, 5.0);
+      tl.to("#s2-send", { scale: 1, duration: 0.2, ease: "expo.out" }, 5.08);
+      // zoom through the Send button: its blue becomes the next world
+      tl.to("#s2-stage", { scale: 18, transformOrigin: "748px 818px", duration: 0.55, ease: "power3.in" }, 5.4);
+      tl.to("#s2-fill", { opacity: 1, duration: 0.14, ease: "power2.in" }, 5.82);
+
+      window.__timelines["s2"] = tl;
+    })();
+  </script>
+</template>

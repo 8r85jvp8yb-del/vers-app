@@ -1,0 +1,83 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: var(--cobalt); }
+    #s1-stage { position: absolute; inset: 0; }
+    .s1-title { position: absolute; left: 70px; right: 70px; top: 250px; color: #fff; font-size: 172px; }
+    .s1-title .acc { color: var(--sky); }
+    .s1-sub { position: absolute; left: 74px; top: 588px; color: var(--sky); font-size: 76px; }
+    #s1-photo { position: absolute; left: 0; top: 690px; width: 1080px; height: 560px; overflow: hidden; }
+    #s1-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #s1-flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+    #s1-phone { left: 180px; top: 690px; }
+    #s1-t2, #s1-t2b, #s1-t3, #s1-t3b, #s1-inapp, #s1-newthumb { opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="s1" data-width="1080" data-height="1920">
+    <div id="s1-stage">
+      <h1 id="s1-t1" class="s1-title display">Kampen pågår <span class="acc">fortsatt.</span></h1>
+      <h1 id="s1-t2" class="s1-title display">Fra kamera til redaksjon.</h1>
+      <div id="s1-t2b" class="s1-sub display">Uten laptop.</div>
+      <h1 id="s1-t3" class="s1-title display">Rett til <span class="acc">iPhone.</span></h1>
+      <div id="s1-t3b" class="s1-sub display">Over Wi‑Fi.</div>
+
+      <div id="s1-phone" class="phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="sb-time" data-layout-ignore>18:32</div>
+          <div class="sb-right" data-layout-ignore><span class="sb-bars"><i style="height:10px"></i><i style="height:14px"></i><i style="height:18px"></i><i style="height:22px"></i></span><span class="sb-batt">72</span></div>
+          <div class="app-status"><span><span class="dot"></span>Venter på bilder</span><span class="ip">192.168.86.38</span></div>
+          <div class="app-nav"><span class="back">‹ Bilder</span><span class="pill-auto">● AUTO SEND&nbsp; AV ⌄</span></div>
+          <div class="app-photo"><img id="s1-inapp" src="assets/img/p-app-pack.jpg" alt="" /></div>
+          <div class="thumbs">
+            <div id="s1-newthumb" class="sel"><img src="assets/img/p-app-pack.jpg" alt="" /></div>
+            <div><img src="assets/img/p-duel.jpg" alt="" /></div>
+            <div><img src="assets/img/p-app-nr5.jpg" alt="" /></div>
+            <div><img src="assets/img/p-pack.jpg" alt="" /></div>
+          </div>
+          <div class="cap-card"><div class="h"><span>Bildetekst</span><b>✎ Rediger</b></div><div class="t"></div></div>
+          <div class="tabbar" data-layout-ignore><span>Hjem</span><span class="on">Bilder</span><span>Oppdrag</span><span>IPTC</span><span>Innstillinger</span></div>
+        </div>
+      </div>
+
+      <div id="s1-photo"><img src="assets/img/p-app-pack.jpg" alt="Sarpsborg 08-spillere i jubel" /></div>
+    </div>
+    <div id="s1-flash"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, at, d = 0.2) => tl.fromTo(sel, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out" }, at);
+      const blurOut = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, at);
+
+      // initial states
+      tl.set("#s1-phone", { y: 1400 }, 0);
+
+      // hook: the photo is already there; a slow push inside the frame (the camera, not the title)
+      tl.fromTo("#s1-photo img", { scale: 1.12, x: 30 }, { scale: 1.0, x: 0, duration: 1.4, ease: "power2.out" }, 0);
+      // shutter: the frame is taken
+      tl.fromTo("#s1-flash", { opacity: 0 }, { opacity: 0.85, duration: 0.03 }, 1.3);
+      tl.to("#s1-flash", { opacity: 0, duration: 0.22, ease: "power2.out" }, 1.36);
+      tl.fromTo("#s1-photo", { scale: 1.035 }, { scale: 1, duration: 0.3, ease: "expo.out" }, 1.33);
+
+      // line 2
+      blurOut("#s1-t1", 1.85);
+      blurIn("#s1-t2", 2.02);
+      blurIn("#s1-t2b", 2.6);
+
+      // the phone arrives, the photo is carried into it
+      tl.to("#s1-phone", { y: 0, duration: 0.75, ease: "expo.out" }, 3.5);
+      // photo box centre (540, 970) -> in-app photo centre (540, 1166), width 1080 -> 628
+      tl.to("#s1-photo", { y: 196, scale: 0.5815, transformOrigin: "50% 50%", duration: 0.55, ease: "power3.inOut" }, 3.75);
+      tl.to("#s1-inapp", { opacity: 1, duration: 0.18, ease: "power2.out" }, 4.18);
+      tl.to("#s1-photo", { opacity: 0, duration: 0.14 }, 4.24);
+      tl.fromTo("#s1-newthumb", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 4.45);
+
+      blurOut("#s1-t2", 4.7);
+      blurOut("#s1-t2b", 4.72);
+      blurIn("#s1-t3", 4.9);
+      blurIn("#s1-t3b", 5.45);
+
+      window.__timelines["s1"] = tl;
+    })();
+  </script>
+</template>

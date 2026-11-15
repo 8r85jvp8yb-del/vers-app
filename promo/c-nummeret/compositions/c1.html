@@ -1,0 +1,96 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #06080c; }
+    #c1-cam { position: absolute; inset: 0; }
+    #c1-phone { left: 180px; top: 690px; }
+    #c1-inapp { opacity: 0; }
+    #c1-hero { position: absolute; left: 0; top: 520px; width: 1080px; height: 1400px; overflow: hidden; }
+    #c1-hero img { position: absolute; left: 0; top: -530px; width: 1080px; height: 2755px; display: block; }
+    #c1-ring { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    #c1-band { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: #06080c; }
+    .c1-title { position: absolute; left: 70px; right: 60px; top: 250px; color: #fff; font-size: 150px; opacity: 0; }
+    .c1-title .acc { color: var(--sky); }
+    #c1-t1 { opacity: 1; }
+    #c1-send { left: 446px; top: 566px; }
+    .jersey > * { opacity: 0; }
+    #c1-phone .jersey { font-size: 29px; }
+    #c1-row2 { position: relative; }
+    #c1-iris { position: absolute; inset: 0; background: var(--cobalt); clip-path: circle(0px at 779px 812px); }
+  </style>
+  <div id="root" data-composition-id="c1" data-width="1080" data-height="1920">
+    <div id="c1-cam">
+      <div id="c1-phone" class="phone">
+        <div class="island"></div>
+        <div class="screen">
+          <div class="sb-time" data-layout-ignore>20:44</div>
+          <div class="app-status" data-layout-ignore><span><span class="dot"></span>Venter på bilder</span><span class="ip">192.168.86.38</span></div>
+          <div class="app-nav" data-layout-ignore><span class="back">‹ Bilder</span><span class="pill-auto on">● AUTO SEND&nbsp; PÅ · Bekreft ⌄</span></div>
+          <div class="app-photo"><img id="c1-inapp" src="assets/img/p-app-nr5.jpg" alt="" /><svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 628 400"><circle id="c1-ringB" cx="176" cy="207" r="50" fill="none" stroke="#8ed8ff" stroke-width="7" stroke-dasharray="315" stroke-dashoffset="315" /></svg></div>
+          <div class="thumbs"><div><img src="assets/img/p-pack.jpg" alt="" /></div><div><img src="assets/img/p-app-pack.jpg" alt="" /></div><div><img src="assets/img/p-duel.jpg" alt="" /></div><div class="sel"><img src="assets/img/p-app-nr5.jpg" alt="" /></div></div>
+          <div id="c1-send" class="send-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M2 11.5 21 3l-6.5 18-3.2-7.3L2 11.5Zm9.6 1.7 2.1 4.8L18 6.4 7 11.3l4.6 1.9Z"/></svg>Send</div>
+          <div class="jersey">
+            <div class="found">✓ Fant 1 nummer i bildet</div>
+            <div class="seg"><span class="on">Velg én</span><span>Velg flere</span></div>
+            <div class="row" id="c1-row1"><span class="l"><span class="radio"></span><b>#5&nbsp; Luca Høyland</b></span><span class="team">Sarpsborg 08</span></div>
+            <div class="row" id="c1-row2"><span class="l"><span class="radio"><i id="c1-dot" style="opacity:0"></i></span><b>#5&nbsp; Kevin Tshiembe</b></span><span class="team">Vålerenga</span></div>
+            <div class="note" id="c1-note">Kontroller navn og nummer mot bildet før du sender. Valget oppdaterer IPTC-bildeteksten.</div>
+          </div>
+        </div>
+      </div>
+      <div id="c1-hero"><img src="assets/img/hero-nr5.jpg" alt="Spiller med nummer 5, TSHIEMBE" /></div>
+      <svg id="c1-ring" viewBox="0 0 1080 1920">
+        <ellipse id="c1-ringA" cx="751" cy="960" rx="270" ry="225" fill="none" stroke="#8ed8ff" stroke-width="12" stroke-dasharray="1560" stroke-dashoffset="1560" />
+      </svg>
+    </div>
+    <div id="c1-band" data-layout-allow-occlusion></div>
+    <h1 id="c1-t1" class="c1-title display">Se <span class="acc">nummeret.</span></h1>
+    <h1 id="c1-t2" class="c1-title display">Finn <span class="acc">spilleren.</span></h1>
+    <h1 id="c1-t3" class="c1-title display">Draktanalyse <span class="acc">foreslår.</span></h1>
+    <h1 id="c1-t4" class="c1-title display">Du <span class="acc">bekrefter.</span></h1>
+    <div id="c1-iris"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, at) => tl.fromTo(sel, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, at);
+      const blurOut = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, at);
+
+      // hook: the number, ringed
+      tl.fromTo("#c1-hero img", { scale: 1.08, transformOrigin: "751px 970px" }, { scale: 1, duration: 2.2, ease: "power2.out" }, 0);
+      tl.to("#c1-ringA", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 0.45);
+      blurOut("#c1-t1", 1.95);
+      blurIn("#c1-t2", 2.12);
+
+      // pull back: the jersey becomes a photo inside Shutdesk
+      tl.fromTo("#c1-phone", { y: 1300 }, { y: 0, duration: 0.01 }, 3.3);
+      tl.set("#c1-inapp", { opacity: 1 }, 3.3);
+      tl.to("#c1-ringA", { opacity: 0, duration: 0.15 }, 3.4);
+      tl.to("#c1-hero", { scale: 0.153, x: 402 - 751, y: 1173 - 960, transformOrigin: "751px 440px", duration: 0.85, ease: "power2.inOut" }, 3.45);
+      tl.to("#c1-hero", { opacity: 0, duration: 0.2, ease: "power1.in" }, 4.12);
+
+      // the camera lifts to the analysis
+      tl.to("#c1-phone", { y: -600, scale: 1.15, transformOrigin: "50% 0%", duration: 0.65, ease: "power2.inOut" }, 4.8);
+      tl.to(".jersey > *", { opacity: 1, duration: 0.25, stagger: 0.14, ease: "power2.out" }, 5.35);
+      tl.to("#c1-ringB", { strokeDashoffset: 0, duration: 0.4, ease: "power2.inOut" }, 5.5);
+      blurOut("#c1-t2", 6.25);
+      blurIn("#c1-t3", 6.42);
+
+      // the photographer confirms: the name on the jersey matches
+      tl.to("#c1-row2", { backgroundColor: "#22406b", duration: 0.15 }, 8.9);
+      tl.fromTo("#c1-row2", { scale: 1 }, { scale: 0.97, duration: 0.08, yoyo: true, repeat: 1, ease: "power2.inOut" }, 8.9);
+      tl.to("#c1-dot", { opacity: 1, duration: 0.1 }, 8.95);
+      tl.to("#c1-row1", { opacity: 0.45, duration: 0.2 }, 9.0);
+      blurOut("#c1-t3", 10.1);
+      blurIn("#c1-t4", 10.27);
+      tl.to("#c1-note", { color: "#ffffff", duration: 0.3 }, 11.2);
+
+      // send: the iris opens from the button
+      tl.to("#c1-send", { scale: 0.9, duration: 0.08, ease: "power2.in" }, 13.6);
+      tl.to("#c1-send", { scale: 1, duration: 0.2, ease: "expo.out" }, 13.68);
+      tl.to("#c1-iris", { clipPath: "circle(2300px at 779px 812px)", duration: 0.45, ease: "power3.in" }, 13.8);
+
+      window.__timelines["c1"] = tl;
+    })();
+  </script>
+</template>
