@@ -1,0 +1,29 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #c2-bg { position: absolute; inset: 0; background: var(--cobalt); }
+    #c2-lock { left: 150px; top: 440px; }
+    #c2-icon, #c2-line, #c2-cta { opacity: 0; }
+    .c2-line { position: absolute; left: 0; right: 0; top: 690px; text-align: center; color: #fff; font-size: 116px; line-height: 0.98; }
+    .c2-line .acc { color: var(--sky); }
+    #c2-cta { left: 0; right: 0; margin: 0 auto; width: 760px; justify-content: center; top: 1070px; }
+  </style>
+  <div id="root" data-composition-id="c2" data-width="1080" data-height="1920">
+    <div id="c2-bg"></div>
+    <div id="c2-lock" class="lockup"><img id="c2-icon" src="assets/img/icon.png" alt="Shutdesk" /><span id="c2-word" class="word">SHUTDESK</span></div>
+    <div id="c2-line" class="c2-line display">See the number.<br /><span class="acc">Find the player.</span></div>
+    <div id="c2-cta" class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="#0b1730" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg>Download on the App Store</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#c2-word", { clipPath: "inset(0% 100% 0% 0%)" }, 0);
+      tl.fromTo("#c2-icon", { opacity: 1, y: -900, rotation: -14 }, { opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.3);
+      tl.to("#c2-word", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.42, ease: "power3.out" }, 0.75);
+      tl.fromTo("#c2-line", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.2);
+      tl.fromTo("#c2-cta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 1.65);
+      window.__timelines["c2"] = tl;
+    })();
+  </script>
+</template>

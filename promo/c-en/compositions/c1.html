@@ -1,0 +1,73 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #06080c; }
+    #c1-phone { left: 180px; top: 690px; }
+    #c1-hero { position: absolute; left: 0; top: 520px; width: 1080px; height: 950px; overflow: hidden; }
+    #c1-hero img { position: absolute; left: -525px; top: -400px; width: 2160px; height: 1357px; display: block; }
+    #c1-ring { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+    #c1-band { position: absolute; left: 0; right: 0; top: 0; height: 520px; background: #06080c; }
+    .c1-title { position: absolute; left: 70px; right: 60px; top: 250px; color: #fff; font-size: 150px; opacity: 0; }
+    .c1-title .acc { color: var(--sky); }
+    #c1-t1 { opacity: 1; }
+    #c1-home, #c1-cap { opacity: 0; }
+    #c1-hl { position: absolute; left: 102px; top: 866px; width: 877px; height: 268px; border: 6px solid var(--sky); border-radius: 26px; opacity: 0; }
+    #c1-iris { position: absolute; inset: 0; background: var(--cobalt); clip-path: circle(0px at 902px 628px); }
+  </style>
+  <div id="root" data-composition-id="c1" data-width="1080" data-height="1920">
+    <div id="c1-phone" class="phone shot-phone">
+      <div class="island"></div>
+      <div class="screen">
+        <img class="shot" src="assets/en/app-photo-badges.png" alt="Shutdesk photo with jersey numbers #11 and #1" />
+        <img id="c1-home" class="shot" src="assets/en/app-home.png" alt="Jersey analysis and Quick jersey confirm switched on" />
+        <img id="c1-cap" class="shot" src="assets/en/app-photo-77.png" alt="Caption naming the player" />
+      </div>
+    </div>
+    <div id="c1-hero"><img src="assets/en/en-ph-badges-clean.jpg" alt="Players with jersey number badges #11 and #1" /></div>
+    <svg id="c1-ring" viewBox="0 0 1080 1920"><ellipse id="c1-ringA" cx="620" cy="1080" rx="130" ry="100" fill="none" stroke="#8ed8ff" stroke-width="11" stroke-dasharray="730" stroke-dashoffset="730" /></svg>
+    <div id="c1-hl"></div>
+    <div id="c1-band" data-layout-allow-occlusion></div>
+    <h1 id="c1-t1" class="c1-title display">See the <span class="acc">number.</span></h1>
+    <h1 id="c1-t2" class="c1-title display">Find the <span class="acc">player.</span></h1>
+    <h1 id="c1-t3" class="c1-title display">One <span class="acc">tap.</span></h1>
+    <h1 id="c1-t4" class="c1-title display">Named. <span id="c1-sent" class="acc" style="opacity:0">Sent.</span></h1>
+    <div id="c1-iris"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, at) => tl.fromTo(sel, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, at);
+      const blurOut = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, at);
+
+      // hook: the number Shutdesk found, ringed
+      tl.fromTo("#c1-hero img", { scale: 1.08, transformOrigin: "1145px 960px" }, { scale: 1, duration: 2.2, ease: "power2.out" }, 0);
+      tl.to("#c1-ringA", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 0.45);
+      blurOut("#c1-t1", 1.95);
+      blurIn("#c1-t2", 2.12);
+
+      // pull back into the same photo on the real screen: badge (620,1080) -> (520,1149), scale 0.262
+      tl.fromTo("#c1-phone", { y: 1400 }, { y: 0, duration: 0.01 }, 3.3);
+      tl.to("#c1-ringA", { opacity: 0, duration: 0.15 }, 3.4);
+      tl.to("#c1-hero", { scale: 0.262, x: -100, y: 69, transformOrigin: "620px 560px", duration: 0.85, ease: "power2.inOut" }, 3.45);
+      tl.to("#c1-hero", { opacity: 0, duration: 0.2, ease: "power1.in" }, 4.12);
+
+      // the switches that do it: Jersey analysis + Quick jersey confirm
+      tl.to("#c1-home", { opacity: 1, duration: 0.25 }, 5.3);
+      tl.to("#c1-phone", { x: -144, y: -1318.2, scale: 1.4, transformOrigin: "0px 0px", duration: 0.7, ease: "power2.inOut" }, 5.2);
+      tl.fromTo("#c1-hl", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 6.1);
+      blurOut("#c1-t2", 6.6);
+      blurIn("#c1-t3", 6.77);
+
+      // the name lands in the caption, then send
+      tl.to("#c1-hl", { opacity: 0, duration: 0.15 }, 9.1);
+      tl.to("#c1-cap", { opacity: 1, duration: 0.25 }, 9.3);
+      tl.to("#c1-phone", { x: -162, y: -920.1, scale: 1.45, transformOrigin: "0px 0px", duration: 0.7, ease: "power2.inOut" }, 9.2);
+      blurOut("#c1-t3", 9.6);
+      blurIn("#c1-t4", 9.77);
+      tl.fromTo("#c1-sent", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 12.15);
+      tl.to("#c1-iris", { clipPath: "circle(2300px at 902px 628px)", duration: 0.45, ease: "power3.in" }, 12.4);
+
+      window.__timelines["c1"] = tl;
+    })();
+  </script>
+</template>

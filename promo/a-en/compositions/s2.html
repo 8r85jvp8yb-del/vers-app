@@ -1,0 +1,56 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: var(--cobalt); }
+    #s2-stage { position: absolute; inset: 0; }
+    #s2-phone { left: 180px; top: 690px; }
+    #s2-band { position: absolute; left: 0; right: 0; top: 0; height: 470px; background: var(--cobalt); opacity: 0; }
+    .s2-title { position: absolute; left: 70px; right: 60px; top: 250px; color: #fff; font-size: 150px; }
+    .s2-title .acc { color: var(--sky); }
+    #s2-t1, #s2-t2 { opacity: 0; }
+    #s2-grid { top: -120px; }
+    #s2-hl { position: absolute; left: 88px; top: 940px; width: 904px; height: 336px; border: 6px solid var(--sky); border-radius: 24px; opacity: 0; }
+    #s2-fill { position: absolute; inset: 0; background: #1a86d6; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="s2" data-width="1080" data-height="1920">
+    <div id="s2-stage">
+      <div id="s2-phone" class="phone shot-phone">
+        <div class="island"></div>
+        <div class="screen">
+          <img class="shot" src="assets/en/app-photo-77.png" alt="Shutdesk photo editor with caption" />
+          <img id="s2-grid" class="shot" src="assets/en/app-photos-grid.png" alt="" />
+        </div>
+      </div>
+      <div id="s2-band" data-layout-allow-occlusion></div>
+      <h1 id="s2-t0" class="s2-title display">All your photos in <span class="acc">one inbox.</span></h1>
+      <h1 id="s2-t1" class="s2-title display">Caption. <span class="acc">Done.</span></h1>
+      <h1 id="s2-t2" class="s2-title display">Send.</h1>
+      <div id="s2-hl"></div>
+    </div>
+    <div id="s2-fill"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const blurIn = (sel, at) => tl.fromTo(sel, { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, at);
+      const blurOut = (sel, at) => tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, at);
+
+      // a photo is opened from the inbox
+      tl.to("#s2-grid", { opacity: 0, scale: 1.08, transformOrigin: "24% 14%", duration: 0.3, ease: "power2.in" }, 0.1);
+      blurOut("#s2-t0", 0.08);
+      tl.to("#s2-band", { opacity: 1, duration: 0.2 }, 0.2);
+      tl.to("#s2-phone", { y: -560, scale: 1.45, transformOrigin: "360px 978px", duration: 0.7, ease: "power2.inOut" }, 0.3);
+      blurIn("#s2-t1", 0.85);
+      tl.fromTo("#s2-hl", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 1.1);
+
+      tl.to("#s2-hl", { opacity: 0, duration: 0.15 }, 2.9);
+      blurOut("#s2-t1", 2.9);
+      blurIn("#s2-t2", 3.06);
+      // zoom through the real Send button (punched in: frame 902,548)
+      tl.to("#s2-stage", { scale: 18, transformOrigin: "902px 548px", duration: 0.55, ease: "power3.in" }, 4.0);
+      tl.to("#s2-fill", { opacity: 1, duration: 0.14, ease: "power2.in" }, 4.42);
+
+      window.__timelines["s2"] = tl;
+    })();
+  </script>
+</template>

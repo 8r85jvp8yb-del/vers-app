@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/ui.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #1b4fb0; }
+      #root { position: relative; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="20" data-width="1080" data-height="1920">
+      <div id="c1" data-composition-id="c1" data-composition-src="compositions/c1.html" data-start="0" data-duration="13.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="c2" data-composition-id="c2" data-composition-src="compositions/c2.html" data-start="13.4" data-duration="6.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <audio id="vo-c1" class="clip" src="assets/vo/c1.wav" data-start="0.4" data-duration="2.54" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-c2" class="clip" src="assets/vo/c2.wav" data-start="3.0" data-duration="2.6" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-c3" class="clip" src="assets/vo/c3.wav" data-start="6.8" data-duration="1.9" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-c4" class="clip" src="assets/vo/c4.wav" data-start="10.0" data-duration="2.24" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-c5" class="clip" src="assets/vo/c5.wav" data-start="15.0" data-duration="1.92" data-track-index="5" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

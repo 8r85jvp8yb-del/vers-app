@@ -41,3 +41,32 @@ environment. For Reels, add a track from Instagram's own audio library when post
   A real full-res match photo would make the hook land harder.
 - C 4.3–5.3 s: the phone sits with an empty lower screen for ~1 s before the analysis appears.
 - All three would gain from a real screen recording of the app instead of rebuilt screens.
+
+---
+
+# English versions (a-en, b-en, c-en) – with voiceover
+
+Sources: the US App Store listing (description + English screenshot headlines) and the owner's
+own English app screenshots (`assets/en/app-*.png`). Unlike the Norwegian cut, the phone shows
+the real screens – nothing is rebuilt. Captions inside the screenshots stay in Norwegian
+because that is what the app produced for those photos.
+
+- **A-en «The match is still on» (24 s):** hook photo with the app's #11/#1 jersey badges →
+  «Camera to iPhone.» → the photo lands in the real Photos inbox → punch-in on the real
+  caption «Sarpsborg 08s spiller Olaus Skarsem før …» → zoom through the real Send button →
+  the Mini Desk page (47 bilder) → end card «A mobile desk for press and sports photographers.»
+- **B-en «The whole desk» (21.5 s):** FTP. → #11 → MEMO. → IPTC. → SEND. → Mini Desk. → the
+  real Home screen's Automation switches → «In your pocket.» Each word carries a crop of a
+  real screen.
+- **C-en «See the number» (20 s):** frame 0 is the #1 badge the app put on the photo → pull-back
+  into the same screen → Home: Jersey analysis + Quick jersey confirm («Confirm jerseys with one
+  tap») → a caption with the player's name → Send → end card.
+
+Voiceover: local Kokoro voice «bm_george» (British male), generated on this machine, free.
+Every line is a paraphrase of the listing. Measured, not heard by me – please listen.
+«The whole desk / In your pocket» is my English rendering of the Norwegian store headline
+«Hele desken. Rett i lomma.»; it is not in the English listing.
+
+Known gaps: C-en's caption shot is a different photo (#77 / Olaus Skarsem) than the #1 hook –
+an English screenshot of the jersey suggestion list for the #1 photo would close that gap.
+Norwegian voiceover needs a HeyGen sign-in (the local voice has no Norwegian).

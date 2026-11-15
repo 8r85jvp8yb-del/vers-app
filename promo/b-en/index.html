@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/ui.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #1b4fb0; }
+      #root { position: relative; width: 100%; height: 100%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="21.5" data-width="1080" data-height="1920">
+      <div id="b1" data-composition-id="b1" data-composition-src="compositions/b1.html" data-start="0" data-duration="17.5" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div id="b2" data-composition-id="b2" data-composition-src="compositions/b2.html" data-start="17.5" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <audio id="vo-b1" class="clip" src="assets/vo/b1.wav" data-start="1.5" data-duration="1.98" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-b2" class="clip" src="assets/vo/b2.wav" data-start="3.5" data-duration="1.98" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-b3" class="clip" src="assets/vo/b3.wav" data-start="5.5" data-duration="1.88" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-b4" class="clip" src="assets/vo/b4.wav" data-start="7.45" data-duration="2.02" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-b5" class="clip" src="assets/vo/b5.wav" data-start="9.5" data-duration="1.83" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-b6" class="clip" src="assets/vo/b6.wav" data-start="11.5" data-duration="2.26" data-track-index="5" data-volume="1"></audio>
+      <audio id="vo-a5" class="clip" src="assets/vo/a5.wav" data-start="18.4" data-duration="1.92" data-track-index="5" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

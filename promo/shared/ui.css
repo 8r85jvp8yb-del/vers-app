@@ -145,3 +145,9 @@
 .lockup .word { font-family: "Montserrat", "Inter", sans-serif; font-weight: 800; font-size: 96px; letter-spacing: 0.02em; color: #fff; }
 .cta { position: absolute; display: flex; align-items: center; gap: 18px; background: #fff; color: #0b1730; border-radius: 26px; padding: 26px 44px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 42px; white-space: nowrap; }
 .cta svg { width: 46px; height: 46px; }
+
+/* a phone that shows a real screenshot (1179x2556) */
+.phone.shot-phone { height: 1505px; }
+.phone .screen img.shot { position: absolute; left: 0; top: 0; width: 672px; height: 1457px; display: block; }
+.crop { position: absolute; overflow: hidden; border-radius: 26px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3); }
+.crop img { display: block; width: 100%; }

@@ -1,0 +1,176 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; background: var(--cobalt); }
+    .b1-p { position: absolute; inset: 0; opacity: 0; }
+    .b1-p.ice { background: var(--ice); color: var(--cobalt); }
+    .b1-p.cob { background: var(--cobalt); color: #fff; }
+    .b1-word { position: absolute; left: 60px; right: 40px; top: 230px; font-size: 300px; }
+    .b1-sub { position: absolute; left: 66px; right: 60px; top: 540px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 50px; line-height: 1.15; }
+    .ice .b1-sub { color: #0b1f45; }
+    .cob .b1-sub { color: var(--sky); }
+    #b1-p0 { opacity: 1; }
+    #b1-open { position: absolute; left: 50px; right: 30px; top: 300px; color: #fff; font-size: 330px; line-height: 0.86; }
+    #b1-open .acc { color: var(--sky); }
+
+    /* 1 wi-fi */
+    #b1-status { position: absolute; left: 60px; width: 960px; top: 720px; height: 120px; border-radius: 30px; background: #122036; color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 44px; font-family: "Inter", sans-serif; font-size: 44px; }
+    #b1-status .dot { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: var(--app-green); margin-right: 22px; }
+    #b1-status .ip { font-family: "JetBrains Mono", monospace; font-size: 38px; color: #dfe6f0; }
+    .b1-th { position: absolute; top: 880px; width: 300px; height: 300px; border-radius: 22px; overflow: hidden; }
+    .b1-th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* 2 #5 */
+    #b1-nrphoto { position: absolute; left: 60px; top: 680px; width: 470px; height: 640px; overflow: hidden; border-radius: 22px; }
+    #b1-nrphoto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+    #b1-ring { position: absolute; left: 60px; top: 680px; width: 470px; height: 640px; }
+    #b1-nrrow { position: absolute; left: 560px; top: 820px; width: 470px; border-radius: 26px; background: #0d1522; color: #fff; padding: 30px 32px; font-family: "Inter", sans-serif; }
+    #b1-nrrow .f { color: var(--app-green); font-weight: 700; font-size: 30px; margin-bottom: 18px; }
+    #b1-nrrow .n { font-size: 44px; font-weight: 700; line-height: 1.15; }
+    #b1-nrrow .t { font-size: 32px; color: var(--app-dim); margin-top: 8px; }
+
+    /* 3 memo */
+    #b1-memo { left: 60px; top: 760px; padding: 26px 40px; border-radius: 40px; gap: 30px; }
+    #b1-memo .k { font-size: 30px; }
+    #b1-memo .v { font-size: 46px; display: block; }
+    #b1-memo .wave { height: 80px; gap: 8px; }
+    #b1-memo .wave i { width: 10px; }
+
+    /* 4 iptc */
+    #b1-cap { position: absolute; left: 60px; width: 960px; top: 700px; border-radius: 30px; background: #182233; padding: 36px 40px; font-family: "Inter", sans-serif; color: #eef2f8; }
+    #b1-cap .h { display: flex; justify-content: space-between; font-size: 30px; color: var(--app-dim); margin-bottom: 18px; }
+    #b1-cap .h b { color: var(--app-sky); font-weight: 400; }
+    #b1-cap .t { font-size: 42px; line-height: 1.35; }
+
+    /* 5 ftp */
+    #b1-send { left: 300px; top: 820px; width: 480px; height: 180px; border-radius: 90px; font-size: 76px; gap: 28px; }
+    #b1-send svg { width: 74px; height: 74px; }
+
+    /* 6 mini desk */
+    #b1-grid { position: absolute; left: 60px; top: 690px; width: 960px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #b1-grid div { height: 330px; overflow: hidden; border-radius: 14px; }
+    #b1-grid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* pocket: the home screen */
+    #b1-title { position: absolute; left: 60px; right: 40px; top: 290px; color: var(--cobalt); font-size: 130px; opacity: 0; }
+    #b1-title2 { position: absolute; left: 60px; right: 40px; top: 290px; color: var(--cobalt); font-size: 130px; opacity: 0; }
+    #b1-phone { left: 180px; top: 560px; }
+    .home { position: absolute; left: 30px; right: 30px; top: 120px; font-family: "Inter", sans-serif; }
+    .home .hdr { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+    .home .hdr h4 { font-size: 46px; display: flex; align-items: center; gap: 16px; }
+    .home .hdr img { width: 54px; height: 54px; border-radius: 12px; }
+    .home .lbl { font-size: 22px; letter-spacing: 0.1em; color: var(--app-dim); font-weight: 700; margin: 18px 6px 12px; }
+    .home .card { background: var(--app-card); border-radius: 24px; padding: 6px 24px; }
+    .home .it { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 2px solid var(--app-line); }
+    .home .it:last-child { border-bottom: 0; }
+    .home .it b { display: block; font-size: 30px; font-weight: 700; }
+    .home .it small { display: block; font-size: 22px; color: var(--app-dim); margin-top: 4px; }
+    .tg { position: relative; width: 96px; height: 56px; border-radius: 28px; background: #3a4558; flex: 0 0 96px; }
+    .tg .on { position: absolute; inset: 0; border-radius: 28px; background: var(--app-green); opacity: 0; }
+    .tg i { position: absolute; left: 5px; top: 5px; width: 46px; height: 46px; border-radius: 50%; background: #fff; }
+  </style>
+  <div id="root" data-composition-id="b1" data-width="1080" data-height="1920">
+    <!-- 0 opener -->
+    <div id="b1-p0" class="b1-p cob"><h1 id="b1-open" class="display">The whole<br />desk<span class="acc">.</span></h1></div>
+
+    <!-- 1 -->
+    <div id="b1-p1" class="b1-p ice">
+      <h1 class="b1-word display">FTP.</h1>
+      <div class="b1-sub">Photos straight from your camera.</div>
+      <div class="crop" id="b1-c1" style="left:160px;top:680px;width:760px"><img src="assets/en/en-ui-grid.png" alt="Shutdesk Photos inbox" /></div>
+    </div>
+
+    <!-- 2 -->
+    <div id="b1-p2" class="b1-p cob">
+      <h1 class="b1-word display">#11</h1>
+      <div class="b1-sub">Jersey number analysis.</div>
+      <div class="crop" id="b1-c2" style="left:60px;top:700px;width:960px"><img src="assets/en/en-ph-badges-clean.jpg" alt="Photo with jersey numbers #11 and #1 detected" /></div>
+      <svg id="b1-ring" style="position:absolute;left:0;top:0;width:1080px;height:1920px" viewBox="0 0 1080 1920"><ellipse id="b1-ringc" cx="487" cy="743" rx="92" ry="62" fill="none" stroke="#8ed8ff" stroke-width="9" stroke-dasharray="490" stroke-dashoffset="490" /></svg>
+    </div>
+
+    <!-- 3 -->
+    <div id="b1-p3" class="b1-p ice">
+      <h1 class="b1-word display">MEMO.</h1>
+      <div class="b1-sub">Speak. The caption fills in.</div>
+      <div class="crop" id="b1-c3" style="left:60px;top:700px;width:960px"><img src="assets/en/en-ph-memo.jpg" alt="" /></div>
+      <div class="crop" id="b1-c3b" style="left:60px;top:1100px;width:960px;border-radius:0 0 26px 26px"><img src="assets/en/en-ui-memo.png" alt="MEMO confirmed #12 Sigurjon Gudmundsson, #11 Sander" /></div>
+    </div>
+
+    <!-- 4 -->
+    <div id="b1-p4" class="b1-p cob">
+      <h1 class="b1-word display">IPTC.</h1>
+      <div class="b1-sub">Templates for each assignment.</div>
+      <div class="crop" id="b1-c4" style="left:60px;top:700px;width:960px"><img src="assets/en/en-ui-iptc.png" alt="IPTC caption and headline" /></div>
+    </div>
+
+    <!-- 5 -->
+    <div id="b1-p5" class="b1-p ice">
+      <h1 class="b1-word display">SEND.</h1>
+      <div class="b1-sub">Send to FTP servers.</div>
+      <div id="b1-send" class="send-btn"><svg id="b1-plane" viewBox="0 0 24 24" fill="#fff"><path d="M2 11.5 21 3l-6.5 18-3.2-7.3L2 11.5Zm9.6 1.7 2.1 4.8L18 6.4 7 11.3l4.6 1.9Z"/></svg>Send</div>
+    </div>
+
+    <!-- 6 -->
+    <div id="b1-p6" class="b1-p cob">
+      <h1 class="b1-word display" style="font-size:230px">Mini Desk.</h1>
+      <div class="b1-sub">A private link for your client.</div>
+      <div class="crop" id="b1-c6" style="left:60px;top:700px;width:960px"><img src="assets/en/en-ui-links.png" alt="Mini Desk customer links" /></div>
+    </div>
+
+    <!-- 7 pocket -->
+    <div id="b1-p7" class="b1-p ice">
+      <div id="b1-phone" class="phone shot-phone">
+        <div class="island"></div>
+        <div class="screen"><img class="shot" src="assets/en/app-home.png" alt="Shutdesk Home with automation switches" /></div>
+      </div>
+      <div id="b1-band" data-layout-allow-occlusion style="position:absolute;left:0;right:0;top:0;height:480px;background:var(--ice)"></div>
+      <h1 id="b1-title" class="display">The whole desk.</h1>
+      <h1 id="b1-title2" class="display">In your pocket.</h1>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const B = 0.5; // 120 BPM: one beat = 15 frames
+      const beat = (n) => Math.round(n * B * 30) / 30;
+      const slam = (sel, at) => tl.fromTo(sel, { scale: 1.22, opacity: 0, filter: "blur(8px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.14, ease: "expo.out", transformOrigin: "0% 50%" }, at);
+      const panels = ["#b1-p0", "#b1-p1", "#b1-p2", "#b1-p3", "#b1-p4", "#b1-p5", "#b1-p6", "#b1-p7"];
+      // panel n starts on beat: opener 3 beats, each word 4 beats
+      const starts = [0, beat(3), beat(7), beat(11), beat(15), beat(19), beat(23), beat(27)];
+      starts.forEach((t, i) => {
+        if (i === 0) return;
+        tl.set(panels[i], { opacity: 1 }, t);
+        tl.set(panels[i - 1], { opacity: 0 }, t);
+      });
+
+      // opener: "desken." punches once on the downbeat
+      tl.fromTo("#b1-open", { scale: 1.06 }, { scale: 1, duration: 0.3, ease: "expo.out", transformOrigin: "0% 50%" }, 0);
+
+      const card = (sel, at) => tl.fromTo(sel, { y: 420, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "expo.out" }, at);
+      const head = (n, t) => { slam(`#b1-p${n} .b1-word`, t); tl.fromTo(`#b1-p${n} .b1-sub`, { opacity: 0 }, { opacity: 1, duration: 0.12 }, t + 0.12); };
+      let t = starts[1]; head(1, t); card("#b1-c1", t + beat(1) - 0.2);
+      tl.to("#b1-c1 img", { y: -160, duration: 1.2, ease: "power1.inOut" }, t + beat(2));
+      t = starts[2]; head(2, t); card("#b1-c2", t + 0.2);
+      tl.to("#b1-ringc", { strokeDashoffset: 0, duration: 0.45, ease: "power2.inOut" }, t + beat(1) + 0.1);
+      t = starts[3]; head(3, t); card("#b1-c3", t + 0.2);
+      tl.fromTo("#b1-c3b", { x: -1100 }, { x: 0, duration: 0.32, ease: "expo.out" }, t + beat(1) + 0.1);
+      t = starts[4]; head(4, t); card("#b1-c4", t + beat(1) - 0.2);
+      t = starts[5]; head(5, t);
+      tl.fromTo("#b1-send", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" }, t + beat(1) - 0.1);
+      tl.to("#b1-send", { scale: 0.9, duration: 0.07, ease: "power2.in" }, t + beat(2));
+      tl.to("#b1-send", { scale: 1, duration: 0.2, ease: "expo.out" }, t + beat(2) + 0.07);
+      tl.to("#b1-plane", { x: 900, y: -700, rotation: -12, duration: 0.45, ease: "power3.in" }, t + beat(2) + 0.05);
+      t = starts[6]; head(6, t); card("#b1-c6", t + beat(1) - 0.2);
+
+      // 7 pocket: the phone rises, the switches flip on the beat
+      t = starts[7];
+      tl.fromTo("#b1-phone", { y: 1400 }, { y: 0, duration: 0.6, ease: "expo.out" }, t);
+      tl.fromTo("#b1-title", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, t + 0.15);
+      tl.to("#b1-phone", { y: -560, scale: 1.25, transformOrigin: "360px 1050px", duration: 0.7, ease: "power2.inOut" }, t + beat(2));
+      tl.to("#b1-title", { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, t + beat(4));
+      tl.fromTo("#b1-title2", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, t + beat(4) + 0.12);
+
+      window.__timelines["b1"] = tl;
+    })();
+  </script>
+</template>

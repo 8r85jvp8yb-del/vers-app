@@ -1,0 +1,50 @@
+<template>
+  <style>
+    @font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 900; src: url("assets/fonts/barlow-condensed-latin-900-italic.woff2") format("woff2"); }
+    #root { position: absolute; inset: 0; overflow: hidden; }
+    #s3-bg { position: absolute; inset: 0; background: #1a86d6; }
+    #s3-t1, #s3-line, #s3-cta, #s3-newimg, #s3-icon { opacity: 0; }
+    .s3-title { position: absolute; left: 70px; right: 60px; top: 250px; color: #fff; font-size: 112px; }
+    #s3-md { left: 180px; top: 640px; }
+    #s3-lock { left: 150px; top: 440px; }
+    .s3-line { position: absolute; left: 0; right: 0; top: 710px; text-align: center; color: #fff; font-size: 84px; line-height: 1.0; }
+    .s3-line .acc { color: var(--sky); }
+    #s3-cta { left: 0; right: 0; margin: 0 auto; width: 760px; justify-content: center; top: 1010px; }
+  </style>
+  <div id="root" data-composition-id="s3" data-width="1080" data-height="1920">
+    <div id="s3-bg"></div>
+    <h1 id="s3-t1" class="s3-title display">Delivered while the match is still on.</h1>
+    <div id="s3-md" class="phone shot-phone">
+      <div class="island"></div>
+      <div class="screen"><img id="s3-newimg" class="shot" src="assets/en/app-minidesk-web.png" alt="Shutdesk Mini Desk page with 47 photos" /></div>
+    </div>
+
+    <div id="s3-lock" class="lockup"><img id="s3-icon" src="assets/img/icon.png" alt="Shutdesk" /><span id="s3-word" class="word">SHUTDESK</span></div>
+    <div id="s3-line" class="s3-line display">A mobile desk for press<br /><span class="acc">and sports photographers.</span></div>
+    <div id="s3-cta" class="cta"><svg viewBox="0 0 24 24" fill="none" stroke="#0b1730" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 20h16"/></svg>Download on the App Store</div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.set("#s3-word", { clipPath: "inset(0% 100% 0% 0%)" }, 0);
+
+      // the desk receives
+      tl.fromTo("#s3-md", { y: 1300 }, { y: 0, duration: 0.7, ease: "expo.out" }, 0.05);
+      tl.fromTo("#s3-newimg", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.1);
+      tl.fromTo("#s3-t1", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 1.45);
+
+      // colour flood into the end card
+      tl.to("#s3-t1", { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, 4.75);
+      tl.to("#s3-md", { y: 1600, duration: 0.38, ease: "power3.in" }, 4.75);
+      tl.to("#s3-bg", { backgroundColor: "#1b4fb0", duration: 0.4, ease: "power2.inOut" }, 4.85);
+
+      // the mark is carried in, the word is wiped on
+      tl.fromTo("#s3-icon", { opacity: 1, y: -900, rotation: -14 }, { opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: "back.out(1.5)" }, 5.2);
+      tl.to("#s3-word", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.42, ease: "power3.out" }, 5.65);
+      tl.fromTo("#s3-line", { opacity: 0, filter: "blur(10px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 6.1);
+      tl.fromTo("#s3-cta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 6.55);
+
+      window.__timelines["s3"] = tl;
+    })();
+  </script>
+</template>
