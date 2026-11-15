@@ -70,3 +70,11 @@ Every line is a paraphrase of the listing. Measured, not heard by me – please 
 Known gaps: C-en's caption shot is a different photo (#77 / Olaus Skarsem) than the #1 hook –
 an English screenshot of the jersey suggestion list for the #1 photo would close that gap.
 Norwegian voiceover needs a HeyGen sign-in (the local voice has no Norwegian).
+
+## Music (English versions only)
+Royalty-free beds from Jamendo via Openverse, all **CC BY 3.0 – credit required when posting**:
+- A-en: "VolexTagamine - Everyone is here" by VolexOne – https://www.jamendo.com/track/1622633 (from 88.0 s)
+- B-en: "High Voltage - FREE MUSIC" by ANtarcticbreeze – https://www.jamendo.com/track/1210825 (from 178.5 s, ~120 BPM, on the cut grid)
+- C-en: "Pulse of Life - FREE MUSIC" by ANtarcticbreeze – https://www.jamendo.com/track/1210828 (from 86.4 s; the swell lands on the pull-back)
+Music at 0.2 under the voice, 1.6 s fade under the end card; final mix normalised to −15 LUFS, −1.5 dBTP.
+Picked from tags, tempo and loudness curves – not heard by me.
